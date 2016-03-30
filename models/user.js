@@ -4,14 +4,31 @@ var mongoose = require('mongoose');
 var bcrypt = require('bcryptjs');
 var jwt = require('jwt-simple');
 
-const JWT_SECRET = 'this is my secret. TELL NOBODY. this can be as long as you would like';
+const JWT_SECRET = 'hey whats up hello';
 
 var User;
 
+// Creates a User Schema. This will be the basis of how user data is stored in the db
 var userSchema = new mongoose.Schema({
   username: { type: String, unique: true, required: true },
-  password: { type: String, required: true }
+  password: { type: String, required: true },
+  location: {type: [Number], required: true}, // [Long, Lat]
+  created_at: {type: Date, default: Date.now},
+  updated_at: {type: Date, default: Date.now}
 });
+
+// Sets the created_at parameter equal to the current time
+userSchema.pre('save', function(next){
+    now = new Date();
+    this.updated_at = now;
+    if(!this.created_at) {
+        this.created_at = now
+    }
+    next();
+});
+
+// Indexes this schema in 2dsphere format (critical for running proximity searches)
+userSchema.index({location: '2dsphere'});
 
 userSchema.statics.authMiddleware = function(req, res, next) {
   var token = req.cookies.fettycookie;

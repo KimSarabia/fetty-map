@@ -1,6 +1,6 @@
 'use strict';
 
-var app = angular.module('userAuth');
+var app = angular.module('meanMapApp');
 
 app.controller('navCtrl', function($scope, UserService, AuthService) {
   $scope.logout = function() {
@@ -13,7 +13,7 @@ app.controller('navCtrl', function($scope, UserService, AuthService) {
   });
 });
 
-app.controller('messagingCtrl', function($scope, $http) {
+app.controller('mapCtrl', function($scope, $http) {
   $http.get('.users.usernames')
   .then(function(res){
     $scope.users = res.data;

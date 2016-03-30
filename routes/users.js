@@ -3,6 +3,7 @@ var router = express.Router();
 
 var User = require('../models/user');
 
+
 router.get('/', function(req, res) {
   User.find({}, function(err, users) {
     res.status(err ? 400 : 200).send(err || users);

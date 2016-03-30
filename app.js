@@ -3,12 +3,17 @@ var path = require('path');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var morgan = require('morgan');
+var methodOverride = require('method-override');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
 var mongoose = require('mongoose');
 const mongoUrl = 'mongodb://localhost/fetty-map';
+
+var port = process.env.PORT || 3000;
+
 
 
 mongoose.connect(mongoUrl, function(err){
@@ -34,6 +39,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(methodOverride());
 
 app.use('/', routes);
 app.use('/users', users);

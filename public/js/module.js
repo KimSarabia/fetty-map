@@ -8,7 +8,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
     // .state('auth', { url: '/auth', templateUrl: '/html/auth.html' })
     .state('login',    { url: '/login',    templateUrl: '/html/auth.html', controller: 'authCtrl' })
     .state('register', { url: '/register', templateUrl: '/html/auth.html', controller: 'authCtrl' })
-
+    .state('map', { url: '/map', templateUrl: '/html/map.html', controller: 'mapCtrl' })
   $urlRouterProvider.otherwise('/');
 });
 
